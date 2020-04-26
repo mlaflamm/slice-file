@@ -324,7 +324,7 @@ FA.prototype.follow = function (start, end) {
     self.once('close', function () { tr.push(null) });
     tr.once('close', function () { tr.push(null) });
     
-    var out = tr.pipe(split()).pipe(through(function (line, _, next) {
+    var out = tr.pipe(split(/\r\n|\n|\r/)).pipe(through(function (line, _, next) {
         if (line.length) this.push(line + '\n');
         next();
     }));

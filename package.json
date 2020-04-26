@@ -1,5 +1,5 @@
 {
-  "name": "slice-file",
+  "name": "slice-file-ml",
   "version": "1.0.0",
   "description": "stream file slices by line number indexes",
   "main": "index.js",
@@ -16,9 +16,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/slice-file.git"
+    "url": "git://github.com/mlaflamm/slice-file.git"
   },
-  "homepage": "https://github.com/substack/slice-file",
+  "homepage": "https://github.com/mlaflamm/slice-file",
   "keywords": [
     "slice",
     "file",

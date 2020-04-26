@@ -1,0 +1,17 @@
+# Coverage reports
+coverage
+.nyc_output
+
+# Test
+test
+
+# Editors
+.vscode
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+
