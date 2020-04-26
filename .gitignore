@@ -1,0 +1,21 @@
+# Coverage reports
+coverage
+.nyc_output
+
+# Test output directories
+test/data/follow.txt
+test/data/write.txt
+
+# Dependency directory
+node_modules
+
+# Editors
+.vscode
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+
