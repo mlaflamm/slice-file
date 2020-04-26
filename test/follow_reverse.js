@@ -16,14 +16,14 @@ test('slice a following instance', function (t) {
         res.push(String(line));
         if (res.length === 3) {
             t.deepEqual(res, [ 'four\n', 'five\n', 'six\n' ]);
-            fs.appendFile(file, [ 'seven', 'eight', 'nine', '' ].join('\n'));
+            fs.appendFile(file, [ 'seven', 'eight', 'nine', '' ].join('\n'), () => undefined);
         }
         else if (res.length === 6) {
             t.deepEqual(res, [
                 'four\n', 'five\n', 'six\n',
                 'seven\n', 'eight\n', 'nine\n'
             ]);
-            fs.appendFile(file, [ 'ten', 'eleven' ].join('\n'));
+            fs.appendFile(file, [ 'ten', 'eleven' ].join('\n'), () => undefined);
         }
         else if (res.length === 7) {
             t.deepEqual(res, [
@@ -31,7 +31,7 @@ test('slice a following instance', function (t) {
                 'seven\n', 'eight\n', 'nine\n',
                 'ten\n'
             ]);
-            fs.appendFile(file, '\n');
+            fs.appendFile(file, '\n', () => undefined);
         }
         else if (res.length === 8) {
             t.deepEqual(res, [

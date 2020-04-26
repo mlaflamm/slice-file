@@ -63,7 +63,7 @@ FA.prototype._read = onopen(function (start, end, cb, rev) {
     
     if (index === start) line = [];
     
-    var buffer = new Buffer(self.bufsize);
+    var buffer = Buffer.alloc(self.bufsize);
     
     (function _read () {
         fs.read(self.fd, buffer, 0, buffer.length, offset,
@@ -73,7 +73,7 @@ FA.prototype._read = onopen(function (start, end, cb, rev) {
                 if (rev) {
                     lines.forEach(function (line) { cb(null, line) });
                 }
-                else if (line && line.length) cb(null, Buffer(line));
+                else if (line && line.length) cb(null, Buffer.from(line));
                 return cb(null, null);
             }
             
@@ -91,10 +91,10 @@ FA.prototype._read = onopen(function (start, end, cb, rev) {
                     }
                     else if (index > start) {
                         if (rev) {
-                            lines.unshift(Buffer(line));
+                            lines.unshift(Buffer.from(line));
                         }
                         else {
-                            cb(null, Buffer(line));
+                            cb(null, Buffer.from(line));
                         }
                         line = [];
                     }
@@ -165,7 +165,7 @@ FA.prototype._readReverse = onopen(function (start, end, cb, rev) {
             }
         }
     }
-    var buffer = new Buffer(self.bufsize);
+    var buffer = Buffer.alloc(self.bufsize);
     offset = Math.max(0, offset - buffer.length);
     
     var lines = null;
@@ -179,11 +179,11 @@ FA.prototype._readReverse = onopen(function (start, end, cb, rev) {
             if (bytesRead === 0 || offset < 0) {
                 if (!rev) {
                     lines.forEach(function (xs) {
-                        cb(null, Buffer(xs));
+                        cb(null, Buffer.from(xs));
                     });
                 }
                 else if (lines && lines.length) {
-                    cb(null, Buffer(lines[0]));
+                    cb(null, Buffer.from(lines[0]));
                 }
                 return cb(null, null);
             }
@@ -191,7 +191,7 @@ FA.prototype._readReverse = onopen(function (start, end, cb, rev) {
             for (var i = bytesRead - 1; i >= 0; i--) {
                 if (buf[i] === 0x0a) {
                     if (firstNewline && i + 1 < bytesRead && index === 0) {
-                        if (rev) cb(buf.slice(i+1, bytesRead))
+                        if (rev) cb(null, buf.slice(i+1, bytesRead))
                         else {
                             lines.unshift(buf.slice(i+1, bytesRead));
                             lines.splice(1);
@@ -208,11 +208,11 @@ FA.prototype._readReverse = onopen(function (start, end, cb, rev) {
                         found = true;
                         if (!rev && lines) {
                             lines.forEach(function (xs) {
-                                cb(null, Buffer(xs));
+                                cb(null, Buffer.from(xs));
                             });
                         }
                         else if (lines && lines.length) {
-                            cb(null, Buffer(lines[0]));
+                            cb(null, Buffer.from(lines[0]));
                         }
                         cb(null, null);
                         lines = null;
@@ -221,7 +221,7 @@ FA.prototype._readReverse = onopen(function (start, end, cb, rev) {
                     else if (index < end) {
                         if (!lines) lines = [];
                         if (rev && lines.length) {
-                            cb(null, Buffer(lines[0]));
+                            cb(null, Buffer.from(lines[0]));
                             lines.splice(1);
                         }
                         lines.unshift([]);
